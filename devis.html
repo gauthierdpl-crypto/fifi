@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demander un devis gratuit · Le Débarras Français</title>
+<meta name="description" content="Demandez votre devis gratuit de débarras de maison en Normandie. Réponse sous 24h, sans engagement.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--green:#1f8a52;--green-d:#13663a;--green-bright:#37e07e;--green-soft:#e6f1ea;--ink:#141815;--ink2:#2c332f;--muted:#6f7873;--line:rgba(20,30,26,.12);--deep:#0a0d0b}
+  *{box-sizing:border-box;margin:0;padding:0}
+  /* POLICE UNIQUE, système Apple (SF Pro), partout, comme le site */
+  *,*::before,*::after{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue','Inter',sans-serif!important}
+  body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue','Inter',sans-serif;color:var(--ink2);background:#e9ebe8;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.07;letter-spacing:-.02em;color:var(--ink)}
+  .wrap{max-width:720px;margin:0 auto;padding:0 22px;position:relative;z-index:1}
+
+  /* En-tête (fond uni, comme le reste) */
+  .top{background:transparent;position:relative;padding:20px 0 22px;text-align:center}
+  .top>*{position:relative;z-index:1}
+  .logo-link img{height:58px;width:auto;display:block;margin:0 auto 18px}
+  .top .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--green-d);font-weight:700;letter-spacing:.13em;text-transform:uppercase;font-size:.72rem;margin-bottom:12px}
+  .top .eyebrow::before,.top .eyebrow::after{content:"";width:18px;height:1px;background:rgba(31,138,82,.4)}
+  .top h1{color:var(--ink);font-size:clamp(1.7rem,4.6vw,2.5rem)}
+  .top p{color:var(--muted);max-width:480px;margin:13px auto 0;font-size:1rem}
+  .top .back{position:absolute;top:22px;left:22px;color:var(--green-d);font-weight:600;font-size:.9rem;display:inline-flex;align-items:center;gap:7px;z-index:2}
+
+  /* Carte formulaire */
+  .card{position:relative;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:0 40px 90px -50px rgba(8,30,18,.35);padding:38px 38px 34px;margin:8px auto 0;max-width:720px;overflow:hidden}
+  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--green),var(--green-bright))}
+  @media(max-width:560px){.card{padding:28px 20px 26px;border-radius:20px}}
+
+  .reassure{display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:center;align-items:center;margin-bottom:28px}
+  .reassure span{display:inline-flex;align-items:center;gap:7px;color:var(--green-d);font-weight:600;font-size:.9rem;white-space:nowrap}
+  .reassure svg{width:16px;height:16px;flex:none}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:560px){.grid2{grid-template-columns:1fr}}
+  .field{margin-bottom:16px}
+  label{display:block;font-weight:600;font-size:.86rem;color:var(--ink);margin-bottom:7px}
+  label .req{color:var(--green)}
+  input,select,textarea{width:100%;font-family:inherit;font-size:1rem;color:var(--ink);background:#fbfdfb;border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;transition:border-color .2s,box-shadow .2s}
+  input::placeholder,textarea::placeholder{color:#aab2ac}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(31,138,82,.14)}
+  textarea{min-height:116px;resize:vertical}
+  select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236f7873' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
+
+  .btn-submit{width:100%;margin-top:6px;background:var(--green);color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;line-height:1.2;border:none;border-radius:16px;padding:20px 24px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:12px;transition:background .2s,transform .15s,box-shadow .2s;box-shadow:0 18px 40px -14px rgba(31,138,82,.65)}
+  .btn-submit svg{flex:none}
+  .btn-submit:hover{background:var(--green-d);transform:translateY(-2px);box-shadow:0 22px 46px -14px rgba(31,138,82,.75)}
+  .btn-submit:disabled{opacity:.65;cursor:default;transform:none}
+  .fine{text-align:center;color:var(--muted);font-size:.82rem;margin-top:14px}
+
+  .alt-call{text-align:center;margin:24px auto 0;color:var(--muted);font-size:.95rem}
+  .alt-call a{color:var(--green-d);font-weight:700;font-family:'Space Grotesk',sans-serif;font-size:1.18rem;white-space:nowrap}
+
+  /* Honeypot */
+  .hp{position:absolute!important;left:-9999px;opacity:0;height:0;width:0}
+
+  /* Messages */
+  .result{display:none;text-align:center;padding:22px 6px 10px}
+  .result.show{display:block;animation:fade .4s ease both}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .result .ic{width:76px;height:76px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+  .result.ok .ic{background:rgba(31,138,82,.12)}
+  .result.err .ic{background:rgba(200,60,60,.1)}
+  .result h2{font-size:1.7rem;margin-bottom:10px}
+  .result p{color:var(--muted);max-width:430px;margin:0 auto}
+  .result .rcall{margin-top:22px}
+  .result .rcall a{color:var(--green-d);font-weight:700;font-family:'Space Grotesk',sans-serif;font-size:1.25rem}
+  .wa-box{margin:26px auto 0;max-width:480px;background:var(--green-soft);border:1px solid rgba(31,138,82,.2);border-radius:18px;padding:22px 20px;text-align:center}
+  .wa-box .wa-title{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--green-d);font-size:1.05rem;margin-bottom:7px}
+  .wa-box .wa-sub{color:var(--ink2);font-size:.9rem;line-height:1.5;margin-bottom:16px}
+  .wa-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#25d366;color:#fff;font-weight:700;font-size:1rem;padding:14px 28px;border-radius:12px;box-shadow:0 14px 28px -12px rgba(37,211,102,.6);white-space:nowrap}
+  .wa-btn svg{width:20px;height:20px;flex:none}
+
+  footer{position:relative;z-index:1;text-align:center;padding:40px 22px 48px;color:var(--muted);font-size:.85rem}
+  footer a{color:var(--green-d);font-weight:600}
+</style>
+</head>
+<body>
+
+  <section class="top">
+    <a class="back" href="index.html">← Retour au site</a>
+    <div class="wrap">
+      <a class="logo-link" href="index.html"><img src="medias/logo-ldf.png" alt="Le Débarras Français"></a>
+      <span class="eyebrow">Devis gratuit · sans engagement</span>
+      <h1>Parlez-nous de votre projet</h1>
+      <p>Remplissez ce formulaire en 1 minute. On vous rappelle avec un prix clair, sous 24h.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="card">
+
+      <div id="formArea">
+        <div class="reassure">
+          <span><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1f8a52" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Réponse sous 24h</span>
+          <span><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1f8a52" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Devis gratuit</span>
+          <span><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1f8a52" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Sans engagement</span>
+        </div>
+
+        <form id="devisForm" novalidate>
+          <input type="hidden" name="access_key" value="85bd698f-e2c3-4608-ad9b-f3f759ec11d4">
+          <input type="hidden" name="subject" value="Nouvelle demande de devis · Le Débarras Français">
+          <input type="hidden" name="from_name" value="Site Le Débarras Français">
+          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+
+          <div class="grid2">
+            <div class="field">
+              <label for="nom">Nom et prénom <span class="req">*</span></label>
+              <input id="nom" name="Nom" type="text" required placeholder="Ex. Martine Dupont">
+            </div>
+            <div class="field">
+              <label for="tel">Téléphone <span class="req">*</span></label>
+              <input id="tel" name="Téléphone" type="tel" required placeholder="06 00 00 00 00">
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div class="field">
+              <label for="email">E-mail</label>
+              <input id="email" name="Email" type="email" placeholder="vous@email.fr">
+            </div>
+            <div class="field">
+              <label for="cp">Code postal / ville</label>
+              <input id="cp" name="Ville" type="text" placeholder="14000 Caen">
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div class="field">
+              <label for="bien">Type de bien</label>
+              <select id="bien" name="Type de bien">
+                <option>Appartement</option>
+                <option>Maison</option>
+                <option>Cave / grenier / garage</option>
+                <option>Local commercial / professionnel</option>
+                <option>Autre</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="situ">Votre situation</label>
+              <select id="situ" name="Situation">
+                <option>Succession / décès</option>
+                <option>Départ en EHPAD</option>
+                <option>Vente immobilière</option>
+                <option>Logement encombré / Diogène</option>
+                <option>Local professionnel</option>
+                <option>Autre</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="msg">Votre message</label>
+            <textarea id="msg" name="Message" placeholder="Décrivez le bien à débarrasser, le volume approximatif, vos délais…"></textarea>
+          </div>
+
+          <button class="btn-submit" type="submit">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1012 2z" fill="#fff"/></svg>
+            Envoyer ma demande de devis
+          </button>
+          <p class="fine">En envoyant, vous acceptez d'être recontacté(e). Vos données ne servent qu'à traiter votre demande.</p>
+        </form>
+
+        <div class="alt-call">Vous préférez parler ? <a href="tel:+33649024214">06 49 02 42 14</a></div>
+      </div>
+
+      <div class="result ok" id="okMsg">
+        <div class="ic"><svg width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1f8a52" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h2>Demande envoyée, merci !</h2>
+        <p>On a bien reçu votre demande. On vous recontacte sous 24h avec un devis clair et gratuit.</p>
+        <div class="wa-box">
+          <p class="wa-title">Vous voulez aller plus vite ?</p>
+          <p class="wa-sub">Si jamais, envoyez quelques photos de ce qu'il y a à vider : on prépare votre estimation avant même de vous appeler.</p>
+          <a class="wa-btn" href="https://wa.me/33649024214?text=Bonjour%2C%20voici%20des%20photos%20de%20mon%20d%C3%A9barras%20:" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1012 2z" fill="#fff"/></svg> Envoyer mes photos</a>
+        </div>
+        <div class="rcall">Une urgence ? <a href="tel:+33649024214">06 49 02 42 14</a></div>
+      </div>
+
+      <div class="result err" id="errMsg">
+        <div class="ic"><svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M12 8v5M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" stroke="#c83c3c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h2>L'envoi a échoué</h2>
+        <p id="errTxt">Réessayez dans un instant, ou appelez-nous directement.</p>
+        <div class="rcall"><a href="tel:+33649024214">06 49 02 42 14</a></div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>© 2026 Le Débarras Français · Débarras de maison en Normandie · <a href="index.html">Retour au site</a></footer>
+
+<script>
+  (function(){
+    var form=document.getElementById('devisForm');
+    var area=document.getElementById('formArea');
+    var ok=document.getElementById('okMsg'),err=document.getElementById('errMsg'),errTxt=document.getElementById('errTxt');
+    var btn=form.querySelector('.btn-submit');
+    function up(){window.scrollTo({top:0,behavior:'smooth'});}
+    form.addEventListener('submit',function(e){
+      e.preventDefault();
+      btn.disabled=true;var old=btn.innerHTML;btn.textContent='Envoi en cours…';
+      var data=new FormData(form);
+      fetch('https://api.web3forms.com/submit',{method:'POST',body:data})
+        .then(function(r){return r.json();})
+        .then(function(j){
+          if(j.success){area.style.display='none';ok.classList.add('show');up();}
+          else{throw new Error(j.message||'Erreur');}
+        })
+        .catch(function(){btn.disabled=false;btn.innerHTML=old;area.style.display='none';err.classList.add('show');up();});
+    });
+  })();
+</script>
+</body>
+</html>
