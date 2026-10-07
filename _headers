@@ -1,0 +1,36 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  X-Frame-Options: SAMEORIGIN
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; media-src 'self' https:; connect-src 'self' https://api.web3forms.com https://*.google-analytics.com https://*.googletagmanager.com https://*.google.com https://pagead2.googlesyndication.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://td.doubleclick.net https://ad.doubleclick.net https://www.google.fr; frame-src https://www.googletagmanager.com https://td.doubleclick.net https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com
+
+/medias/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/site.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/site.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/vendor/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/motion-*
+  Cache-Control: public, max-age=31536000, immutable
+
+/motion.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/motion.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/communes.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/
+  Cache-Control: public, max-age=0, must-revalidate

@@ -1,0 +1,99 @@
+/* =====================================================================
+   MOTION STORY · les trois scènes pilotées par le défilement
+   A. (retiree) La pièce se vide      B. Galerie avant / après (#cartes)
+   C. Les quatre étapes (.steps-sec) : le filet or
+
+   Règles : section haute + enfant sticky + ScrollTrigger scrub SANS pin.
+   transform et opacity seulement. Tout décor est en pointer-events:none.
+   L'état par défaut (sans JS, mouvement réduit, bibliothèques absentes) est
+   l'état final lisible. Les classes sc-live, cg-live, cg-scrub, cg-rail et
+   st-live sont posées par motion-story.js, jamais en CSS nu.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   A. LA PIÈCE SE VIDE
+   --------------------------------------------------------------------- */
+/* (la scene « La piece se vide » n'existe plus sur l'accueil : ses regles .sc ont ete retirees le 04/10/2026,
+   copie dans _sauvegardes/retraits-20261004/motion-story.scene.css) */
+
+/* ---------------------------------------------------------------------
+   B. GALERIE AVANT / APRÈS
+   --------------------------------------------------------------------- */
+/* le calque « après » vit dans .rea-win : état par défaut = après visible */
+.rea-win{position:absolute;inset:0;overflow:hidden}
+.rea-win::after{content:"";position:absolute;top:0;bottom:0;right:0;width:2px;z-index:2;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,244,214,0),rgba(255,236,190,.95) 20%,rgba(255,236,190,.95) 80%,rgba(255,244,214,0));
+  box-shadow:0 0 22px 3px rgba(217,185,124,.65);opacity:var(--sv,0)}
+#cartes .rea{position:relative}
+#cartes .rea-grid{position:relative}
+.cg-prog{display:none}
+
+/* --- ordinateur : le défilement vertical devient horizontal --- */
+#cartes.cg-scrub{height:var(--cg-h,320vh);padding:0}
+#cartes.cg-scrub .cg-stage{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:center;
+  overflow:hidden;overflow:clip;padding:clamp(84px,11vh,120px) 0 clamp(52px,8vh,76px)}
+#cartes.cg-scrub .cg-head{flex:none;max-width:none;width:100%}
+#cartes.cg-scrub .cg-head h2{margin-bottom:clamp(10px,1.4vh,18px)}
+#cartes.cg-scrub .cg-view{flex:none;width:100%;max-width:none;padding:0;margin:clamp(14px,2.6vh,30px) 0 0}
+#cartes.cg-scrub .rea-grid{--cg-w:min(42vw,620px,calc((100vh - 400px) * 1.3333));--cg-w:min(42vw,620px,calc((100svh - 400px) * 1.3333));
+  display:flex;flex-wrap:nowrap;grid-template-columns:none;align-items:center;
+  width:max-content;max-width:none;margin:0;padding:18px calc(50vw - var(--cg-w) / 2);gap:clamp(20px,2.4vw,40px);will-change:transform}
+#cartes.cg-scrub .rea{flex:none;width:var(--cg-w);aspect-ratio:4/3;transform-origin:50% 50%;will-change:transform,opacity;
+  box-shadow:0 40px 80px -36px rgba(40,28,10,.55)}
+#cartes.cg-scrub .rea-win,#cartes.cg-scrub .rea-win img{will-change:transform}
+#cartes.cg-scrub .rea:not(.cg-on) .rea-cap{opacity:0}
+#cartes .rea-cap{transition:opacity .4s ease}
+#cartes.cg-scrub .cg-prog,#cartes.cg-rail .cg-prog{display:flex}
+.cg-prog{position:absolute;left:0;right:0;bottom:clamp(18px,3.4vh,34px);align-items:center;justify-content:center;gap:16px;
+  pointer-events:none;color:#6b5a3d;font:600 .78rem/1 'Inter',system-ui,sans-serif;letter-spacing:.18em;font-variant-numeric:tabular-nums}
+.cg-prog .cg-b{display:block;width:clamp(120px,16vw,220px);height:1px;background:rgba(107,90,61,.28);overflow:hidden}
+.cg-prog .cg-b u{display:block;width:100%;height:100%;background:#b08e57;transform-origin:0 50%;text-decoration:none}
+.cg-prog .cg-i{color:#2a2218;min-width:2ch;text-align:right}
+
+/* --- mobile : rail horizontal natif, accroché au doigt --- */
+@media (max-width:899px){
+  #cartes .cg-view{max-width:none;padding:0;position:relative}
+  #cartes .rea-grid{--cg-cw:min(78vw,480px);display:flex;flex-wrap:nowrap;grid-template-columns:none;gap:12px;
+    max-width:none;margin:30px 0 0;padding:6px calc((100vw - var(--cg-cw)) / 2) 8px;
+    overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-padding-inline:calc((100vw - var(--cg-cw)) / 2)}
+  #cartes .rea-grid::-webkit-scrollbar{display:none}
+  #cartes .rea{flex:0 0 var(--cg-cw);scroll-snap-align:center;scroll-snap-stop:always}
+  #cartes.cg-rail .cg-prog{position:relative;left:auto;right:auto;bottom:auto;margin-top:16px}
+  /* départ : l'avant seul ; le voile balaie vers l'après quand la carte arrive au centre */
+  #cartes.cg-rail .rea:not(.cg-on) .rea-win{transform:translate3d(-101%,0,0)}
+  #cartes.cg-rail .rea:not(.cg-on) .rea-win img{transform:translate3d(101%,0,0)}
+  #cartes.cg-rail .rea-win,#cartes.cg-rail .rea-win img{transition:transform 1.15s cubic-bezier(.65,0,.2,1)}
+  #cartes.cg-rail .rea.cg-on .rea-win::after{animation:cgSeam 1.15s ease both}
+  #cartes.cg-rail .rea:not(.cg-on) .rea-cap{opacity:0}
+}
+@keyframes cgSeam{0%{opacity:0}25%{opacity:1}80%{opacity:1}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){
+  #cartes.cg-rail .rea-win,#cartes.cg-rail .rea-win img{transition:none}
+}
+#cartes .rea.cg-tr .rea-win,#cartes .rea.cg-tr .rea-win img{transition:transform .9s cubic-bezier(.65,0,.2,1)}
+
+/* ---------------------------------------------------------------------
+   C. LES ÉTAPES : un filet or qui se dessine
+   --------------------------------------------------------------------- */
+.st-rail{display:none}
+.steps-sec.st-live .st-rail{display:block;position:absolute;left:8px;top:0;bottom:0;width:0;pointer-events:none;z-index:3}
+.st-in{position:sticky;top:112px;width:0;height:var(--st-h,320px)}
+.st-track,.st-line{position:absolute;left:-1px;top:0;bottom:0;width:2px;display:block}
+.st-track{background:rgba(176,142,87,.22)}
+.st-line{background:linear-gradient(180deg,#e9cf9a,#b08e57);transform-origin:50% 0;transform:scaleY(0);box-shadow:0 0 14px rgba(217,185,124,.55)}
+.st-tip{position:absolute;left:-6px;top:-6px;width:12px;height:12px;border-radius:50%;background:#f3dcab;
+  box-shadow:0 0 0 4px rgba(217,185,124,.24),0 0 26px 6px rgba(217,185,124,.6);transform:translateY(0)}
+.st-node{position:absolute;left:-5px;width:10px;height:10px;border-radius:50%;background:#fbf7ee;border:2px solid rgba(176,142,87,.5);
+  transition:background .5s,border-color .5s,box-shadow .5s}
+.st-node.on{background:#d9b97c;border-color:#b08e57;box-shadow:0 0 0 5px rgba(217,185,124,.2)}
+@media (max-width:680px){
+  .steps-sec.st-live .st-rail{left:5px}
+}
+.steps-sec.st-live .stack-card{transition:border-color .6s,box-shadow .6s}
+.steps-sec.st-live .stack-card.st-lit{border-color:rgba(176,142,87,.65);box-shadow:var(--shadow),0 0 0 1px rgba(217,185,124,.35),0 24px 60px -30px rgba(176,142,87,.5)}
+
+/* la revelation de la galerie est pilotee par le defilement : le survol de site.css (qui montre l'avant) ne doit pas l'inverser */
+@media (hover:hover){
+  #cartes.cg-live .rea:not(.show):hover .rea-a{clip-path:inset(0 0 0 0)}
+}
