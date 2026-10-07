@@ -1,0 +1,24 @@
+/* Film du hero : libelles des trois cas, phrase finale, bouton pause (motion-film.js) */
+.film-tags{position:absolute;z-index:2;left:clamp(18px,3.4vw,52px);top:clamp(78px,11vh,122px);max-width:min(80vw,540px);pointer-events:none}
+.film-tags .ft,.film-tags .ft-end{position:absolute;left:0;top:0;opacity:0}
+.film-tags .ft{white-space:nowrap;padding:9px 16px 9px 12px;border-left:2px solid #d9b97c;
+  background:linear-gradient(90deg,rgba(14,12,9,.58),rgba(14,12,9,0));
+  font:600 12.5px/1 var(--sans,'Inter',system-ui,sans-serif);letter-spacing:.2em;text-transform:uppercase;color:#f6f2ea;text-shadow:0 1px 10px rgba(14,12,9,.55)}
+.film-tags .ft-end{width:min(88vw,660px);white-space:normal;font:italic 500 clamp(17px,1.6vw,22px)/1.32 var(--serif,'Playfair Display',Georgia,serif);color:#f6f2ea;text-shadow:0 2px 18px rgba(14,12,9,.75)}
+/* la scene courante est posee par motion-film.js (attribut data-seg sur .hero, d'apres le temps de la video) */
+.film-tags .ft,.film-tags .ft-end{transition:opacity .55s ease,transform .7s cubic-bezier(.16,1,.3,1);transform:translateX(-8px)}
+.hero[data-seg="classique"] .film-tags .ft[data-k="classique"],
+.hero[data-seg="accumulation"] .film-tags .ft[data-k="accumulation"],
+.hero[data-seg="industriel"] .film-tags .ft[data-k="industriel"],
+.hero[data-seg="retour"] .film-tags .ft-end{opacity:1;transform:none}
+.film-pause{position:absolute;z-index:6;right:clamp(14px,2.2vw,32px);top:clamp(70px,10vh,112px);width:44px;height:44px;border-radius:50%;
+  display:grid;place-items:center;padding:0;cursor:pointer;color:#f6f2ea;border:1px solid rgba(246,242,234,.6);
+  background:rgba(14,12,9,.5);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);-webkit-tap-highlight-color:transparent}
+.film-pause[hidden]{display:none}
+.film-pause .i-play{display:none}
+.film-paused .film-pause .i-pause{display:none}
+.film-paused .film-pause .i-play{display:block}
+.film-pause:hover{background:rgba(14,12,9,.72)}
+/* mobile : la phrase finale chevaucherait le titre, les libelles des trois cas suffisent */
+@media (max-width:760px){.film-tags .ft-end{display:none}}
+@media (prefers-reduced-motion:reduce){.film-tags,.film-pause{display:none}}

@@ -1,0 +1,90 @@
+/* =====================================================================
+   motion-hero.css : ouverture, hero, curseur, filet de progression.
+   Les etats de depart ne sont poses que sous html.mk (JS present, mouvement
+   permis) ET tant que html.mkh-live est absent. Filet de securite CSS : au bout
+   de 1,5 s tout reapparait meme si GSAP ne se charge jamais.
+   Tout calque decoratif est en pointer-events:none.
+   ===================================================================== */
+
+/* ---------- 0. Neutraliser la premiere couche (motion.css, site.css) : GSAP prend la main ---------- */
+html.mk .hero h1,html.mk .hero-sub,html.mk .hero-proof,html.mk .hero-cta,html.mk .hero .dispo,html.mk .hero-photo,html.mk .hero-triade{animation:none}
+html.mk .hero-vid,html.mk .hero-media{animation:none}
+html.mk .hero-veil::after{animation:none;opacity:0}
+html.mk .hero-bg::before{animation:none}
+
+/* ---------- 1. Etats de depart (CSS) tant que la scene n'est pas prise en main ---------- */
+@keyframes mkhSafe{to{opacity:1}}
+@keyframes mkhSafeV{to{transform:scale(1.04)}}
+@keyframes mkhSafeD{to{opacity:0}}
+/* Premiere visite (html.mk-first) : rien n'est cache en CSS, le rideau d'ouverture couvre la page et la mise en scene
+   cache puis revele dessous. Le titre (LCP) et le bouton d'appel ne dependent donc jamais de GSAP, meme en connexion lente.
+   Autres visites : etats de depart ici, avec repli apres 1,5 s si GSAP tarde. */
+html.mk:not(.mkh-live):not(.mk-first) .hero h1,
+html.mk:not(.mkh-live):not(.mk-first) .hero-sub,
+html.mk:not(.mkh-live):not(.mk-first) .hero-proof,
+html.mk:not(.mkh-live):not(.mk-first) .hero-cta,
+html.mk:not(.mkh-live):not(.mk-first) .hero .dispo,
+html.mk:not(.mkh-live):not(.mk-first) .hero-triade,
+html.mk:not(.mkh-live):not(.mk-first) .hero-photo{opacity:0;animation:mkhSafe .01s 1.5s forwards}
+html.mk:not(.mkh-live):not(.mk-first) .hero-vid,
+html.mk:not(.mkh-live):not(.mk-first) .hero-media{transform:scale(1.12);animation:mkhSafeV .01s 1.5s forwards}
+
+/* ---------- 2. Titre en masques ---------- */
+.hero h1.mkh-split>br{display:none}
+.hero h1 .mkh-l1{display:block}
+.hero h1 .mkh-rw{display:block}
+.hero h1 .mkh-line,.hero h1 .mkh-l1 *{will-change:transform}
+.hero .hp-stars .mkh-star{display:inline-block}
+
+/* ---------- 3. Calques decoratifs du hero ---------- */
+.mkh-dawn,.mkh-dusk,.mkh-sweep{position:absolute;pointer-events:none}
+.mkh-dawn{inset:0;z-index:1;background:#16120d;opacity:.78;animation:mkhSafeD .01s 1.5s forwards}
+html.mkh-live .mkh-dawn{animation:none}
+.mkh-dusk{inset:0;z-index:1;background:#16120d;opacity:0}
+.mkh-sweep{top:-12%;bottom:-12%;left:0;width:34%;z-index:1;opacity:0;
+  background:linear-gradient(100deg,transparent 0%,rgba(217,185,124,.0) 28%,rgba(236,214,166,.20) 50%,rgba(217,185,124,.0) 72%,transparent 100%);
+  transform:skewX(-16deg)}
+html.mk .hero-vid,html.mk .hero-media{will-change:transform}
+
+/* ---------- 4. Rideau d'ouverture ---------- */
+.mkh-cv{position:fixed;inset:0;z-index:100000;pointer-events:none;overflow:hidden}
+.mkh-cv-t,.mkh-cv-b{position:absolute;left:0;right:0;pointer-events:none;
+  background:#16120d radial-gradient(70% 90% at 50% 50%,rgba(217,185,124,.10),transparent 70%)}
+.mkh-cv-t{top:0;height:50.5%}
+.mkh-cv-b{bottom:0;height:50.5%}
+.mkh-cv-mid{position:absolute;left:0;right:0;top:50%;display:flex;flex-direction:column;align-items:center;gap:0;
+  transform:translateY(-50%);pointer-events:none}
+.mkh-cv-mid img{display:block;width:72px;height:auto;margin-bottom:22px;pointer-events:none}
+.mkh-cv-line{display:block;width:min(220px,46vw);height:1px;background:linear-gradient(90deg,transparent,#d9b97c 20%,#ecd9a8 50%,#d9b97c 80%,transparent);
+  transform-origin:50% 50%;pointer-events:none}
+
+/* ---------- 5. Filet de progression ---------- */
+.mkh-bar{position:fixed;top:0;left:0;width:100%;height:2px;z-index:9000;pointer-events:none;
+  background:linear-gradient(90deg,#b8924d,#d9b97c 55%,#efdcae);transform:scaleX(0);transform-origin:0 50%;will-change:transform}
+/* remplace la barre de lecture de site.js (meme role, 1100 px et plus) */
+html.mk-gsap .lect-barre{display:none}
+
+/* ---------- 6. Curseur or (pointeur fin) ---------- */
+.mkh-cur{position:fixed;left:0;top:0;width:0;height:0;z-index:99990;pointer-events:none;opacity:1;transition:opacity .3s}
+.mkh-cur.is-off{opacity:0}
+.mkh-cur-r{position:absolute;left:-17px;top:-17px;width:34px;height:34px;border-radius:50%;box-sizing:border-box;
+  border:1.5px solid rgba(217,185,124,.95);background:rgba(217,185,124,0);
+  box-shadow:0 0 0 1px rgba(22,18,13,.32),inset 0 0 0 1px rgba(22,18,13,.12);
+  transition:transform .4s cubic-bezier(.16,1,.3,1),background .3s,border-color .3s,opacity .3s;pointer-events:none}
+.mkh-cur-t{position:absolute;left:0;top:0;transform:translate(-50%,-50%);font:600 11px/1 system-ui,-apple-system,"Segoe UI",sans-serif;
+  letter-spacing:.14em;text-transform:uppercase;color:#d9b97c;opacity:0;transition:opacity .25s;white-space:nowrap;pointer-events:none}
+.mkh-cur.is-link .mkh-cur-r{transform:scale(1.6);background:rgba(217,185,124,.14)}
+.mkh-cur.is-tel .mkh-cur-r{transform:scale(2.3);background:rgba(22,18,13,.84);border-color:#d9b97c}
+.mkh-cur.is-tel .mkh-cur-t{opacity:1}
+.mkh-cur.is-txt .mkh-cur-r{transform:scale(.4);opacity:.6}
+.mkh-cur.is-dn .mkh-cur-r{transform:scale(.8)}
+.mkh-cur.is-link.is-dn .mkh-cur-r{transform:scale(1.35)}
+.mkh-cur.is-tel.is-dn .mkh-cur-r{transform:scale(2)}
+
+/* ---------- 7. Boutons magnetiques : pas de transition sur transform (GSAP la pilote) ---------- */
+.mkh-mag{transition-property:box-shadow,background,background-color,color,border-color,filter !important}
+
+/* mouvement reduit : rien de tout cela n'existe, mais par securite */
+@media (prefers-reduced-motion:reduce){
+  .mkh-cv,.mkh-cur,.mkh-bar,.mkh-sweep,.mkh-dawn,.mkh-dusk{display:none !important}
+}
