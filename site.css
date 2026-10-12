@@ -3437,3 +3437,6 @@ html body #main#main #questions #faq{margin-top:0}
 .est-wiz .ef-opts:not(.ef-one):has(>:nth-child(3):last-child){grid-template-columns:repeat(3,minmax(0,1fr))}
 @media(max-width:519px){.est-wiz .ef-opts:not(.ef-one):has(>:nth-child(3):last-child){grid-template-columns:1fr}}
 .est-wiz .ef-opts:not(.ef-one)>:last-child:nth-child(odd):not(:first-child):not(:nth-child(3)){grid-column:1/-1}
+
+/* 12/10 : page devis, les 4 engagements sous le titre ne tombent plus en 3 + 1 : toujours deux rangées de deux, centrées. */
+.devis-reassure{display:grid;grid-template-columns:repeat(2,max-content);justify-content:center;gap:10px 36px}
